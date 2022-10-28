@@ -26,8 +26,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        # python setup.py install_egg_info Workaround https://github.com/pypa/pip/issues/4537
-        pip install -e .[dev]
+        python setup.py install_egg_info # Workaround https://github.com/pypa/pip/issues/4537
+        poetry install --no-root
         pip install black flake8 isort --upgrade # Testing packages
     - name: Check code format with black and isort
       run: |
