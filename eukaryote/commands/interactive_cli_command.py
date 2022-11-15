@@ -28,7 +28,8 @@ class InteractiveCliCommand(TextAttackCommand):
             "distilbert-base-uncased",
         ]
         dataset_choices = ["yelp_polarity", "rotten_tomatoes"]
-        attack_choices = ["bert-attack", "deepwordbug", "textfooler"]
+        #attack_choices = ["bert-attack", "deepwordbug", "textfooler"]
+        attack_choices = list(shared.attack_recipe_names.keys())
 
         questions = [
             {
