@@ -42,7 +42,7 @@ More detailed documentation for each of these commands can be accessed with the 
 
 ```$ conda activate t4a```
 
-3. Install the euclids package:
+3. Install the eukaryote package:
 
 ```$ pip install -e .```
 
