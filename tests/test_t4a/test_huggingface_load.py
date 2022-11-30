@@ -1,5 +1,5 @@
 '''
-Tests for t4a.shared module
+Tests for t4a.shared module's HuggingFace functionality
 '''
 from argparse import Namespace
 from eukaryote.t4a import shared

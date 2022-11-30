@@ -9,7 +9,7 @@ def test_imports():
     # Make sure we can import eukaryote
     from eukaryote.t4a import attack_eval_support, shared
     del attack_eval_support, shared
-'''
+
 ### Alert: do not run this on the clinic mac! It will take an hour. 
 def test_run_attack():
     #Run the simplest possible attack, assert that it works
@@ -26,5 +26,5 @@ def test_run_attack():
 
     res = run_attack(model_wrapper = model_wrapper, dataset = dataset, attack_recipe=shared.attack_recipe_names['alzantot'], perturbation_budget=0.) # first choice of each
     assert isinstance(res, Results) # make sure we return a t4a Results instance
-    '''
+    
 
