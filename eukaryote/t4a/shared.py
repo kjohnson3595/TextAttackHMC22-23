@@ -106,7 +106,7 @@ def add_arguments_dataset(parser, default_split=None):
 
 
 def add_arguments_attack(
-    parser, enable_attack_args=True, enable_extra_constraints=True
+    parser, enable_attack_args=True, enable_extra_constraints=True, enable_save=True,
 ):
     """Define attack arguments."""
     group = parser.add_argument_group("Attack")
@@ -122,6 +122,12 @@ def add_arguments_attack(
             "--attack_args",
             type=str,
             help="JSON string of extra kwargs to pass to the attacker",
+        )
+    if enable_save:
+        group.add_argument(
+            "--output_filepath",
+            type=str,
+            help="file path of attack output (JSON)"
         )
     if enable_extra_constraints:
         group.add_argument(
@@ -237,7 +243,9 @@ def load_attack(args):
     if args.attack_strength:
         result["attack_strength"] = args.attack_strength
 
+    if args.output_filepath:
+        result["output_filepath"] = args.output_filepath
+
     if args.attack_args:
         result["attack_args"] = json.loads(args.attack_args)
-
     return result

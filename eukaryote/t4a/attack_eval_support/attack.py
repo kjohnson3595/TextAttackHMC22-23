@@ -160,17 +160,12 @@ class MultiAttacker:
                 attack_args = {}
             self.attack_args = [attack_args] * len(self.attacks)
 
-    def attack_dataset(self, dataset, file_path=""):
+    def attack_dataset(self, dataset):
         attack_results = []
         for attack, attack_args in zip(self.attacks, self.attack_args):
             if "num_examples" not in attack_args:
                 attack_args["num_examples"] = len(dataset)
             attacker = Attacker(attack, dataset, AttackArgs(**attack_args))
             attack_results.append(attacker.attack_dataset())
-
-        if file_path:
-            import json
-            with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(attack_results, f)
 
         return Results.from_attack_results(attack_results, self.labels)
