@@ -45,7 +45,7 @@ extras["dev"] = (
 setuptools.setup(
     name="eukaryote",
     version="0.0.1",
-    url = "https://github.com/kjohnson3595/TextAttackHMC22-23/tree/development/eukaryote",
+    url="https://github.com/kjohnson3595/TextAttackHMC22-23/tree/development/eukaryote",
     author="HMC Proofpoint clinic team",
     author_email="dpitt@hmc.edu",
     description="EuCLIDS: Eukaryote Command Line Interface for Developers. A library for testing adversarial attacks on language models",
