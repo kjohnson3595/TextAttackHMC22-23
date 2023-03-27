@@ -42,6 +42,13 @@ More detailed documentation for each of these commands can be accessed with the 
 
 ```$ conda activate t4a```
 
+If using a GPU with CUDA capabilities, instead run: 
+
+```$ conda create -f gpu_env.yml```
+
+
+```$ conda activate t4a_gpu```
+
 3. Install the eukaryote package:
 
 ```$ pip install -e .```
