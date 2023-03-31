@@ -12,6 +12,8 @@ from eukaryote.commands.t4a_train_command import T4A_TrainCommand
 from eukaryote.commands.t4a_attack_train_command import T4A_AttackTrainCommand
 import eukaryote.t4a.shared as shared
 
+from eukaryote.attack_args import ATTACK_RECIPE_NAMES
+from eukaryote.model_args import HUGGINGFACE_MODELS
 
 class InteractiveCliCommand(TextAttackCommand):
     def run(self, args):
@@ -23,12 +25,9 @@ class InteractiveCliCommand(TextAttackCommand):
             "Adversarial training with attack_train",
             "Train a model with train",
         ]
-        model_choices = [
-            "bert-base-uncased",
-            "distilbert-base-uncased",
-        ]
+        model_choices = list(HUGGINGFACE_MODELS.keys())
         dataset_choices = ["yelp_polarity", "rotten_tomatoes"]
-        attack_choices = ["bert-attack", "deepwordbug", "textfooler"]
+        attack_choices = list(ATTACK_RECIPE_NAMES.keys())
 
         questions = [
             {
@@ -44,9 +43,8 @@ class InteractiveCliCommand(TextAttackCommand):
                 "name": "model_huggingface",
             },
             {
-                "message": "Select a dataset:",
-                "type": "fuzzy",
-                "choices": dataset_choices,
+                "message": "Select a HuggingFace dataset:",
+                "type": "input",
                 "name": "dataset_huggingface",
             },
             {
