@@ -32,6 +32,8 @@ HUGGINGFACE_MODELS = {
     "bert-base-uncased-mr": "textattack/bert-base-uncased-rotten-tomatoes",
     "bert-base-uncased-snli": "textattack/bert-base-uncased-snli",
     "bert-base-uncased-yelp": "textattack/bert-base-uncased-yelp-polarity",
+    "bert-base-multilingual-uncased":"bert-base-multilingual-uncased",
+    "bert-base-multilingual-cased":"bert-base-multilingual-cased",
     #
     # distilbert-base-cased
     #

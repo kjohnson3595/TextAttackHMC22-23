@@ -822,7 +822,7 @@ class Trainer:
                     self._wandb_log(metric_log, self._global_step)
 
             # Evaluate after each epoch.
-            eval_score = self.evaluate()
+            eval_score, preds, targets = self.evaluate()
 
             if self.training_args.log_to_tb:
                 self._tb_log({f"eval/{self._metric_name}": eval_score}, epoch)
@@ -837,8 +837,9 @@ class Trainer:
                 and (epoch % self.training_args.checkpoint_interval_epochs) == 0
             ):
                 self._save_model_checkpoint(model, tokenizer, epoch=epoch)
+                
 
-            if eval_score > best_eval_score:
+            if float(eval_score) > best_eval_score:
                 best_eval_score = eval_score
                 best_eval_score_epoch = epoch
                 epochs_since_best_eval_score = 0
@@ -846,6 +847,8 @@ class Trainer:
                 logger.info(
                     f"Best score found. Saved model to {self.training_args.output_dir}/best_model/"
                 )
+                torch.save(preds, f"{self.training_args.output_dir}/best_model/preds.bin")
+                torch.save(targets, f"{self.training_args.output_dir}/best_model/targets.bin")
             else:
                 epochs_since_best_eval_score += 1
                 if self.training_args.early_stopping_epochs and (
@@ -923,7 +926,7 @@ class Trainer:
         else:
             logger.info(f"Eval {self._metric_name}: {eval_score:.4f}%")
 
-        return eval_score
+        return eval_score, preds, targets
 
     def _write_readme(self, best_eval_score, best_eval_score_epoch, train_batch_size):
         if isinstance(self.training_args, CommandLineTrainingArgs):
