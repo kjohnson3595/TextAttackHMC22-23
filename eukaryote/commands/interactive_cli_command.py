@@ -68,7 +68,7 @@ class InteractiveCliCommand(TextAttackCommand):
             )  # decide which action to take
             if prompt_action["action"] == "Attack a model with attack_eval":
                 prompt_args = prompt(
-                    [questions[i] for i in [1, 2, 3, 4]], vi_mode=True
+                    [questions[i] for i in list(range(1,len(questions)))], vi_mode=True
                 )  # set up to select arbitrary subset of questions
                 fake_parser = ArgumentParser()
                 # copy t4a_attack_eval_command.py's register_subcommand behavior

@@ -341,7 +341,7 @@ class _CommandLineTrainingArgs:
         model_max_length (int): The maximum sequence length of the model.
         model_num_labels (int): The number of labels for classification (1 for regression).
         dataset_train_split (str): Name of the train split. If not provided will try `train` as the split name.
-        dataset_eval_split (str): Name of the train split. If not provided will try `dev`, `validation`, or `eval` as split name.
+        dataset_eval_split (str): Name of the eval split. If not provided will try `dev`, `validation`, or `eval` as split name.
     """
 
     model_name_or_path: str

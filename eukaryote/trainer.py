@@ -13,6 +13,7 @@ import scipy
 import torch
 import tqdm
 import transformers
+import sklearn.metrics as skm
 
 import eukaryote
 from eukaryote.shared.utils import logger
@@ -822,7 +823,8 @@ class Trainer:
                     self._wandb_log(metric_log, self._global_step)
 
             # Evaluate after each epoch.
-            eval_score, preds, targets = self.evaluate()
+            results, preds, targets = self.evaluate()
+            eval_score, precision, recall, roc, f1 = results
 
             if self.training_args.log_to_tb:
                 self._tb_log({f"eval/{self._metric_name}": eval_score}, epoch)
@@ -847,6 +849,7 @@ class Trainer:
                 logger.info(
                     f"Best score found. Saved model to {self.training_args.output_dir}/best_model/"
                 )
+                logger.info(f"Acc={eval_score}, PR={precision}, REC={recall}, ROC={roc}, F1={f1}")
                 torch.save(preds, f"{self.training_args.output_dir}/best_model/preds.bin")
                 torch.save(targets, f"{self.training_args.output_dir}/best_model/targets.bin")
             else:
@@ -919,12 +922,18 @@ class Trainer:
         else:
             correct_predictions = (preds == targets).sum().item()
             accuracy = correct_predictions / len(targets)
-            eval_score = accuracy
+            precision = skm.average_precision_score(preds,targets)
+            recall = skm.recall_score(preds,targets)
+            roc = skm.roc_auc_score(preds, targets)
+            f1_score = skm.f1_score(preds, targets)
+
+
+            eval_score = (accuracy,precision,recall,roc,f1_score)
 
         if self._metric_name == "accuracy":
             logger.info(f"Eval {self._metric_name}: {eval_score*100:.2f}%")
         else:
-            logger.info(f"Eval {self._metric_name}: {eval_score:.4f}%")
+            logger.info(f"Eval {self._metric_name}: {eval_score[0]:.4f}%")
 
         return eval_score, preds, targets
 

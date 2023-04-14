@@ -34,6 +34,7 @@ HUGGINGFACE_MODELS = {
     "bert-base-uncased-yelp": "textattack/bert-base-uncased-yelp-polarity",
     "bert-base-multilingual-uncased":"bert-base-multilingual-uncased",
     "bert-base-multilingual-cased":"bert-base-multilingual-cased",
+    "bert-base-multilingual-uncased-xnli-en":"dhpitt/bert-base-multilingual-uncased",
     #
     # distilbert-base-cased
     #
